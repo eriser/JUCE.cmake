@@ -70,8 +70,7 @@ function(jucer_project_module module_name PATH_TAG module_path)
     "${CMAKE_CURRENT_BINARY_DIR}/JuceLibraryCode/${module_name}.${extension}")
   set(JUCER_PROJECT_SOURCES ${JUCER_PROJECT_SOURCES} PARENT_SCOPE)
 
-  list(APPEND JUCER_CONFIG_FLAGS ${ARGN})
-  set(JUCER_CONFIG_FLAGS ${JUCER_CONFIG_FLAGS} PARENT_SCOPE)
+  set(JUCER_${module_name}_CONFIG_FLAGS ${ARGN} PARENT_SCOPE)
 
   set(module_header_file "${module_path}/${module_name}/${module_name}.h")
 
@@ -101,8 +100,7 @@ function(jucer_project_end)
       "${module_available_defines}"
       "#define JUCE_MODULE_AVAILABLE_${module_name} 1\n"
     )
-  endforeach()
-    foreach(element ${JUCER_CONFIG_FLAGS})
+    foreach(element ${JUCER_${module_name}_CONFIG_FLAGS})
       if(NOT DEFINED flag_name)
         set(flag_name ${element})
       else()
@@ -128,6 +126,7 @@ function(jucer_project_end)
         unset(flag_name)
       endif()
     endforeach()
+  endforeach()
   configure_file("${JUCE.cmake_ROOT}/cmake/AppConfig.h" "JuceLibraryCode/AppConfig.h")
 
   list(LENGTH JUCER_PROJECT_RESOURCES resources_count)
