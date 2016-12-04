@@ -102,32 +102,32 @@ function(jucer_project_end)
       "#define JUCE_MODULE_AVAILABLE_${module_name} 1\n"
     )
   endforeach()
-  foreach(element ${JUCER_CONFIG_FLAGS})
-    if(NOT DEFINED flag_name)
-      set(flag_name ${element})
-    else()
-      set(flag_value ${element})
-
-      string(CONCAT config_flags_defines
-        "${config_flags_defines}" "#ifndef    ${flag_name}\n")
-      if(flag_value)
-        string(CONCAT config_flags_defines
-          "${config_flags_defines}" " #define   ${flag_name} 1\n")
+    foreach(element ${JUCER_CONFIG_FLAGS})
+      if(NOT DEFINED flag_name)
+        set(flag_name ${element})
       else()
+        set(flag_value ${element})
+
         string(CONCAT config_flags_defines
-          "${config_flags_defines}" " #define   ${flag_name} 0\n")
-      endif()
-      string(CONCAT config_flags_defines "${config_flags_defines}" "#endif\n\n")
-
-      if(${flag_name} STREQUAL "JUCE_PLUGINHOST_AU")
+          "${config_flags_defines}" "#ifndef    ${flag_name}\n")
         if(flag_value)
-          list(APPEND JUCER_PROJECT_OSX_FRAMEWORKS "AudioUnit" "CoreAudioKit")
+          string(CONCAT config_flags_defines
+            "${config_flags_defines}" " #define   ${flag_name} 1\n")
+        else()
+          string(CONCAT config_flags_defines
+            "${config_flags_defines}" " #define   ${flag_name} 0\n")
         endif()
-      endif()
+        string(CONCAT config_flags_defines "${config_flags_defines}" "#endif\n\n")
 
-      unset(flag_name)
-    endif()
-  endforeach()
+        if(${flag_name} STREQUAL "JUCE_PLUGINHOST_AU")
+          if(flag_value)
+            list(APPEND JUCER_PROJECT_OSX_FRAMEWORKS "AudioUnit" "CoreAudioKit")
+          endif()
+        endif()
+
+        unset(flag_name)
+      endif()
+    endforeach()
   configure_file("${JUCE.cmake_ROOT}/cmake/AppConfig.h" "JuceLibraryCode/AppConfig.h")
 
   list(LENGTH JUCER_PROJECT_RESOURCES resources_count)
