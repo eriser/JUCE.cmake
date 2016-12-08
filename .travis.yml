@@ -38,3 +38,12 @@ script:
   - cmake --build .
   - cmake .. -DCMAKE_BUILD_TYPE=Release
   - cmake --build .
+
+  - cd $TRAVIS_BUILD_DIR
+
+  - mkdir "examples/audio plugin demo/build"
+  - cd "examples/audio plugin demo/build"
+  - cmake .. -DCMAKE_BUILD_TYPE=Debug
+  - cmake --build .
+  - cmake .. -DCMAKE_BUILD_TYPE=Release
+  - cmake --build .
