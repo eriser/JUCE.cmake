@@ -54,7 +54,7 @@ jucer_project_begin("JuceDemoPlugin"
 
 jucer_audio_plugin_settings(
   BUILD_VST ON
-  BUILD_VST3 ON
+  # BUILD_VST3 ON
   # BUILD_AUDIOUNIT ON
   PLUGIN_NAME "Juce Demo Plugin"
   PLUGIN_DESCRIPTION "Juce Demo Plugin"
