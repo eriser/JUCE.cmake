@@ -356,9 +356,9 @@ function(jucer_project_end)
 
   if(JUCER_PROJECT_TYPE STREQUAL "audioplug")
     if(APPLE)
-      add_library(${target_name}_Shared_Code STATIC ${project_sources})
+      add_library(${target_name}_Shared_Code OBJECT ${project_sources})
 
-      add_library(${target_name}_VST MODULE)
+      add_library(${target_name}_VST MODULE $<TARGET_OBJECTS:${target_name}_Shared_Code>)
       target_link_libraries(${target_name}_VST PRIVATE ${target_name}_Shared_Code)
       set_target_properties(${target_name}_VST PROPERTIES BUNDLE TRUE BUNDLE_EXTENSION "vst")
     else()
