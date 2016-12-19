@@ -145,4 +145,4 @@ jucer_project_module(
 jucer_project_end()
 
 
-target_include_directories(JuceDemoPlugin PRIVATE "${VST3_SDK_Folder}")
+target_include_directories(JuceDemoPlugin_Shared_Code PRIVATE "${VST3_SDK_Folder}")
