@@ -356,7 +356,7 @@ function(jucer_project_end)
 
   if(JUCER_PROJECT_TYPE STREQUAL "audioplug")
     add_library(${target_name} MODULE ${project_sources})
-    set_target_properties(${target_name} PROPERTIES BUNDLE TRUE)
+    set_target_properties(${target_name} PROPERTIES BUNDLE TRUE BUNDLE_EXTENSION "vst")
   else()
     add_executable(${target_name} ${project_sources})
   endif()
